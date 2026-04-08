@@ -68,42 +68,24 @@ class Hand:
         
         return total
     
-def calculate_winning_hand(hands):
-    values = []
-    blackjack_counter = 0
-    for i in hands:
-        if i.hand_value() == "Bust":
-            continue
-        if i.hand_value() == "Blackjack":
-            blackjack_counter += 1
-        values.append([i.name, i.hand_value()])
-
-    if len(values) == 0:
-        return "Dealer Wins"
-
-            
-    if any(v[1] == "Blackjack" for v in values):
-        for j in range(len(values)):
-            if values[j][1] == "Blackjack" and blackjack_counter == 1:
-                return f"{values[j][0]} Wins with Blackjack"
-            
-        if blackjack_counter == len(hands):
-            return "Push/Draw"
-        
-        if blackjack_counter > 1 and blackjack_counter < len(hands):
-            for i, sublist in enumerate(values):
-                if "Blackjack" in sublist:
-                    if ["Dealer", "Blackjack"] in values:
-                        return f"Push for {values[i][0]} win, the rest lose"
-                    else:
-                        return f"{values[i][0]} have Blackjack"
-                
-                else:
-                    pass
-    else:
-        highest_to_smallest = sorted(values, key=lambda x: x[1], reverse=True)
-        return f"{highest_to_smallest[0][0]}, Wins"
-
+def calculate_winning_hand(player, dealer):
+    players = [player, dealer]
+    player_value = player.hand_value()
+    dealer_value = dealer.hand_value()
+    if isinstance(player_value, int) and isinstance(dealer_value, int):
+        if player_value > dealer_value:
+            return "You win"
+        if player_value < dealer_value:
+            return "Dealer wins, you lose"
+        if player_value == dealer_value:
+            return "Push"
+    
+    if dealer_value == "Bust":
+        return "You win"
+    
+    if player_value == "Bust":
+        return "Dealer wins, you lose"
+    
 def main():
     deck = Deck()
     deck.build_deck()
@@ -117,13 +99,13 @@ def main():
         
         Dealer_value = dealer.hand_value()
         Player_value = you.hand_value()
-        print("\n\n", dealer.cards[1], "\n\n", "you:   ", you.cards)
+        print("\n\n", dealer.cards[1], "\n\n", "you:   ", you.cards, "\n\n")
 
         if Dealer_value == "Blackjack" and not Player_value == "Blackjack":
             return "Dealer wins, you lose"
 
         if Dealer_value == "Blackjack" and Player_value == "Blackjack":
-            return "PUSH"
+            return "Push"
 
         if not Dealer_value == "Blackjack" and Player_value == "Blackjack":
             return "You WIn"
@@ -134,7 +116,7 @@ def main():
             decision = input("Hit or Stay?  ").lower()
             if decision == "hit":
                 you.hit(deck)
-                print("\n\n", dealer.cards[1], "\n\n", "you:   ", you.cards)
+                print("\n\n", dealer.cards[1], "\n\n", "you:   ", you.cards, "\n\n")
                 if you.hand_value() == "Bust":
                     return "Dealer wins, you lose"
             else:
@@ -144,9 +126,9 @@ def main():
             dealer.hit(deck)
             Dealer_value = dealer.hand_value()
 
-        print("\n\n", dealer.cards, "\n\n", "you:   ", you.cards)
+        print("\n\n", dealer.cards, "\n\n", "you:   ", you.cards, "\n\n")
 
-        return calculate_winning_hand(players)
+        return calculate_winning_hand(you, dealer)
     
 if __name__ == "__main__":
         playing = True
