@@ -1,1 +1,1 @@
-Work in progress, blackjack game
+Blackjack game, no graphics yet
