@@ -67,9 +67,10 @@ class Hand:
             return "Blackjack"
         
         return total
-    
+
+#final function to figure out the winner
+
 def calculate_winning_hand(player, dealer):
-    players = [player, dealer]
     player_value = player.hand_value()
     dealer_value = dealer.hand_value()
     if isinstance(player_value, int) and isinstance(dealer_value, int):
@@ -85,7 +86,9 @@ def calculate_winning_hand(player, dealer):
     
     if player_value == "Bust":
         return "Dealer wins, you lose"
-    
+
+#game loop and funtion
+
 def main():
     deck = Deck()
     deck.build_deck()
@@ -101,10 +104,14 @@ def main():
         Player_value = you.hand_value()
 
         if Dealer_value == "Blackjack" and not Player_value == "Blackjack":
-            print("\n\n", dealer.cards, "\n\n", "you:   ", you.cards, "\n\n")
+            print("---------------------------------------------------------")
+            print("Dealer:", dealer.cards, "\n\n", "you:   ", you.cards)
+            print("---------------------------------------------------------")
             return "Dealer wins, you lose"
         else:
-            print("\n\n", dealer.cards[1], "\n\n", "you:   ", you.cards, "\n\n")
+            print("---------------------------------------------------------")
+            print("Dealer:", dealer.cards[1], "\n\n", "you:   ", you.cards)
+            print("---------------------------------------------------------")
 
         if Dealer_value == "Blackjack" and Player_value == "Blackjack":
             return "Push"
@@ -118,7 +125,9 @@ def main():
             decision = input("Hit or Stay?  ").lower()
             if decision == "hit":
                 you.hit(deck)
-                print("\n\n", dealer.cards[1], "\n\n", "you:   ", you.cards, "\n\n")
+                print("---------------------------------------------------------")
+                print("Dealer:",  dealer.cards[1], "\n\n", "you:   ", you.cards)
+                print("---------------------------------------------------------")
                 if you.hand_value() == "Bust":
                     return "Dealer wins, you lose"
             else:
@@ -127,17 +136,31 @@ def main():
         while isinstance(Dealer_value, int) and Dealer_value < 17:
             dealer.hit(deck)
             Dealer_value = dealer.hand_value()
-
-        print("\n\n", dealer.cards, "\n\n", "you:   ", you.cards, "\n\n")
+        print("---------------------------------------------------------")
+        print("Dealer:", dealer.cards, "\n\n", "you:   ", you.cards)
+        print("---------------------------------------------------------")
 
         return calculate_winning_hand(you, dealer)
     
+#runs script
+
 if __name__ == "__main__":
         playing = True
+        play_counter = 0
         while playing:
-            play = input("Do you want to play BlackJack?   ").lower()
-            if play == "yes":
-                print(main())
-            else:
-                play = False
-                break
+            if play_counter == 0:
+                play = input("Do you want to play BlackJack?   ").lower()
+                if play == "yes":
+                    play_counter += 1
+                    print(main())
+                else:
+                    play = False
+                    break
+            elif play_counter > 0:
+                play = input("Do you want to play BlackJack again?   ").lower()
+                if play == "yes":
+                    play_counter += 1
+                    print(main())
+                else:
+                    play = False
+                    break
