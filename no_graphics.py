@@ -99,10 +99,12 @@ def main():
         
         Dealer_value = dealer.hand_value()
         Player_value = you.hand_value()
-        print("\n\n", dealer.cards[1], "\n\n", "you:   ", you.cards, "\n\n")
 
         if Dealer_value == "Blackjack" and not Player_value == "Blackjack":
+            print("\n\n", dealer.cards, "\n\n", "you:   ", you.cards, "\n\n")
             return "Dealer wins, you lose"
+        else:
+            print("\n\n", dealer.cards[1], "\n\n", "you:   ", you.cards, "\n\n")
 
         if Dealer_value == "Blackjack" and Player_value == "Blackjack":
             return "Push"
