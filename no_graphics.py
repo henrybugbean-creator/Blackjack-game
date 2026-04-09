@@ -137,7 +137,7 @@ def main():
             dealer.hit(deck)
             Dealer_value = dealer.hand_value()
         print("---------------------------------------------------------")
-        print("Dealer:", dealer.cards, f" - {dealer.hand_value()}", "\n\n", "you:", you.cards, f" - {you.hand_value()}")
+        print("Dealer:", dealer.cards, "\n\n", "you:", you.cards, f" - {you.hand_value()}")
         print("---------------------------------------------------------")
 
         return calculate_winning_hand(you, dealer)
