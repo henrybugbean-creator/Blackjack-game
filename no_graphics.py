@@ -105,12 +105,12 @@ def main():
 
         if Dealer_value == "Blackjack" and not Player_value == "Blackjack":
             print("---------------------------------------------------------")
-            print("Dealer:", dealer.cards, "\n\n", "you:   ", you.cards)
+            print("Dealer:", dealer.cards, "\n\n", "you:", you.cards, f" - {you.hand_value()}")
             print("---------------------------------------------------------")
             return "Dealer wins, you lose"
         else:
             print("---------------------------------------------------------")
-            print("Dealer:", dealer.cards[1], "\n\n", "you:   ", you.cards)
+            print("Dealer:", dealer.cards[1], "\n\n", "you:", you.cards, f" - {you.hand_value()}")
             print("---------------------------------------------------------")
 
         if Dealer_value == "Blackjack" and Player_value == "Blackjack":
@@ -126,7 +126,7 @@ def main():
             if decision == "hit":
                 you.hit(deck)
                 print("---------------------------------------------------------")
-                print("Dealer:",  dealer.cards[1], "\n\n", "you:   ", you.cards)
+                print("Dealer:",  dealer.cards[1], "\n\n", "you:", you.cards, f" - {you.hand_value()}")
                 print("---------------------------------------------------------")
                 if you.hand_value() == "Bust":
                     return "Dealer wins, you lose"
@@ -137,7 +137,7 @@ def main():
             dealer.hit(deck)
             Dealer_value = dealer.hand_value()
         print("---------------------------------------------------------")
-        print("Dealer:", dealer.cards, "\n\n", "you:   ", you.cards)
+        print("Dealer:", dealer.cards, "\n\n", "you:", you.cards, f" - {you.hand_value()}")
         print("---------------------------------------------------------")
 
         return calculate_winning_hand(you, dealer)
