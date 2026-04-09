@@ -110,7 +110,7 @@ def main():
             return "Dealer wins, you lose"
         else:
             print("---------------------------------------------------------")
-            print("Dealer:", dealer.cards[1], "\n\n", "you:", you.cards, f" - {you.hand_value()}")
+            print("Dealer:", dealer.cards[0], "\n\n", "you:", you.cards, f" - {you.hand_value()}")
             print("---------------------------------------------------------")
 
         if Dealer_value == "Blackjack" and Player_value == "Blackjack":
@@ -126,7 +126,7 @@ def main():
             if decision == "hit":
                 you.hit(deck)
                 print("---------------------------------------------------------")
-                print("Dealer:",  dealer.cards[1], "\n\n", "you:", you.cards, f" - {you.hand_value()}")
+                print("Dealer:",  dealer.cards[0], "\n\n", "you:", you.cards, f" - {you.hand_value()}")
                 print("---------------------------------------------------------")
                 if you.hand_value() == "Bust":
                     return "Dealer wins, you lose"
